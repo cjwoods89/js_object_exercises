@@ -12,11 +12,30 @@
     //@see https://stackoverflow.com/questions/1335851/what-does-use-strict-do-in-javascript-and-what-is-the-reasoning-behind-it
     'use strict';
 
-    ///////////////////////////
-    // Put your code here!
-    ///////////////////////////
+    function LivingThing(name, health){
 
-    
+      this.name = name;
+      this.health = health;
+
+      this.isAlive = function(){
+
+        if (this.health <= 0) {
+          return false;
+        } else {
+          return true;
+        }
+
+      }
+
+    }
+
+    let monster1 = new LivingThing('Rat', 5);
+    let monster2 = new LivingThing('Goblin', 30);
+    let monster3 = new LivingThing('Ogre', 80);
+
+    let monsters = [monster1, monster2, monster3];
+
+
     //The code below should work when you are done
     console.log("Are the monsters alive?");
 
@@ -40,7 +59,3 @@
     }
 
 })();
-    
-
-
-    
