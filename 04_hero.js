@@ -62,7 +62,7 @@
     }
 
       this.setHealth = function(x){
-          health = health - x;
+          health = this.getHealth() - x;
       }
 
     }
@@ -76,29 +76,47 @@
             let monsterDmg = getRandomInt(10, 0);
             let heroDmg = getRandomInt(10, 0);
 
-            attackingMonster.getHealth(attackingMonster.setHealth(heroDmg));
             this.setHealth(monsterDmg);
 
-            console.log('\t' + 'Monster dealt ' + monsterDmg + '! ' + this.getName() + ' now has a health of ' + this.getHealth() + '.');
-            console.log('\t' + 'Hero dealt ' + heroDmg + '! ' + attackingMonster.getName() + ' now has a health of ' + attackingMonster.getHealth() + '.');
+            console.log('\n\t' + attackingMonster.getName() + ' dealt ' + monsterDmg + ' damage!')
 
-            if (attackingMonster.isAlive() == false) {
-                console.log('\n' + attackingMonster.getName() + ' has been defeated! Onto the next challenge!');
+            if (this.getHealth() > 0) {
+                attackingMonster.getHealth(attackingMonster.setHealth(heroDmg));
+                console.log('\t' + this.getName() + ' now has a health of ' + this.getHealth() + '.' + '\n');
+                console.log('\t' + this.getName() + ' dealt ' + heroDmg + ' damage!');
+
+                if (attackingMonster.getHealth() > 0) {
+                    console.log('\t' + attackingMonster.getName() + ' now has a health of ' + attackingMonster.getHealth() + '.');
+                } else {
+                    console.log('\t' + attackingMonster.getName() + ' has been defeated! Onto the next challenge!');
+                }
+
             }
+
+
+
+            // if (attackingMonster.isAlive() == false) {
+            //     console.log('\n' + attackingMonster.getName() + ' has been defeated! Onto the next challenge!');
+            // }
         }
 
         this.fight = function(monsterBrigade){
 
             for (var i = 0; i < monsterBrigade.length; i++) {
 
-                console.log('\n' + 'A wild ' + monsterBrigade[i].getName() + ' appeared! ' + this.getName() + ' currently has ' + this.getHealth() + ' HP. Will he win?' + '\n');
+                if (this.getHealth() > 0){
 
-                while (this.getHealth() > 0 && monsterBrigade[i].getHealth() > 0) {
+                    console.log('\n' + 'A wild ' + monsterBrigade[i].getName() + ' appeared with ' + monsterBrigade[i].getHealth() + ' HP! ' + this.getName() + ' currently has ' + this.getHealth() + ' HP. Will he win?');
+
+                }
+
+                while (this.isAlive() == true && monsterBrigade[i].isAlive() == true) {
 
                         this.attack(monsterBrigade[i]);
 
                 }
             }
+
         }
 
     }
@@ -111,7 +129,7 @@
     let monster2 = new LivingThing('Goblin', 30);
     let monster3 = new LivingThing('Ogre', 80);
 
-    let hero = new Hero('Eric', 10);
+    let hero = new Hero('Eric', 100);
 
     let monsters = [monster1, monster2, monster3];
 
@@ -125,10 +143,10 @@
     hero.fight(monsters);
 
     if (hero.isAlive()) {
-        console.log('\n' + 'The hero, ' + hero.getName() + ', prevailed!');
+        console.log('\n' + 'The hero, ' + hero.getName() + ', prevailed!' + '\n');
     }
     else {
-        console.log(hero.getName() + ' was bested by the monsters. We are doomed' + '\n');
+        console.log('\n' + hero.getName() + ' was bested by the monsters. We are doomed' + '\n');
     }
 
 })();
